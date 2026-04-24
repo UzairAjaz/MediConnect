@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AfterLoginNav from "../components/layouts/AfterLoginNav";
 import Icon from "../components/layouts/Icon";
-import Sidebar from "../components/layouts/SideBar";
+import Sidebar from "../components/layouts/Sidebar"
 
 // API BASE
 const API = "http://localhost:5000/api";
