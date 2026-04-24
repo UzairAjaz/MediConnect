@@ -8,23 +8,26 @@ import ContactPage from "./forms/ContactUs";
 import BookAppointment from "./forms/Appointment";
 import ScrollToTop from "./components/layouts/ScrollToTop";
 
-
 function App() {
   return (
-    <>
-      <BrowserRouter>
-           <ScrollToTop />
-        <Routes>
-          <Route path="/*" element={<MediConnect />} />
-          <Route path="/mediconnect" element={<LandingPage />} />
-          <Route path="/dashboard" element={<MediConnectDashboard />} />
-          <Route path="/doctors" element={<DoctorsPage />} />
-          <Route path="/hospitals" element={<HospitalsPage />} />
-          <Route path="/contactus" element={<ContactPage />} />
-          <Route path="/appointment" element={<BookAppointment />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        {/* DEFAULT PAGE */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* other routes */}
+        <Route path="/dashboard" element={<MediConnectDashboard />} />
+        <Route path="/doctors" element={<DoctorsPage />} />
+        <Route path="/hospitals" element={<HospitalsPage />} />
+        <Route path="/contactus" element={<ContactPage />} />
+        <Route path="/appointment" element={<BookAppointment />} />
+
+        {/* optional auth/layout route */}
+        <Route path="/auth/*" element={<MediConnect />} />
+        <Route path="*" element={<div>404 Not Found</div>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

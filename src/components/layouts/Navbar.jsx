@@ -70,13 +70,13 @@ function TopNav() {
 
         {/* RIGHT SIDE */}
         <div className="flex items-center gap-4 ml-4 border-l pl-4 border-slate-100">
-          <Link to={"/"}>
+          <Link to={"/auth"}>
             <button className="text-slate-700 hover:text-blue-600 transition-all active:scale-95">
               Login
             </button>
           </Link>
 
-          <Link to={"/"}>
+          <Link to={"/auth"}>
             <button className="text-white hover:text-slate-900 transition-all p-2 rounded-xl active:scale-95 bg-amber-500">
               Join as Doctor
             </button>
