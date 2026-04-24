@@ -5,7 +5,7 @@ function TopNav() {
   const location = useLocation(); // current route
 
   const navItems = [
-    { name: "Home", path: "/mediconnect" },
+    { name: "Home", path: "/" },
     { name: "Doctors", path: "/doctors" },
     { name: "Hospitals", path: "/hospitals" },
     { name: "Contact Us", path: "/contactus" },
