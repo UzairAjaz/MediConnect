@@ -3,6 +3,7 @@ import AfterLoginNav from "../components/layouts/AfterLoginNav";
 import Footer from "../components/layouts/Footer";
 import SearchBar from "../components/hospitalpage/SearchBar";
 import HospitalCard from "../components/hospitalpage/HospitalCard";
+import MobileNav from "../components/layouts/MobileNav";
 import { HOSPITALS } from "../data/hospitals";
 import { ICONS } from "../components/layouts/ui/icons/HospitalIcons";
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -105,6 +106,7 @@ export default function HospitalsPage() {
           ))}
         </section>
       </main>
+      <MobileNav/>
       <FAB />
       <Footer />
     </div>

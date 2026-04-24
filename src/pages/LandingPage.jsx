@@ -10,6 +10,7 @@ import HowItWorksSection from "../components/landingpage/HowItWorks";
 import TestimonialsSection from "../components/landingpage/TestimonialsSection";
 import TrustSection from "../components/landingpage/TrustSection";
 import CTASection from "../components/landingpage/CTASection";
+import MobileNav from "../components/layouts/MobileNav";
 import Footer from "../components/layouts/Footer";
 
 function Icon({ name, className = "w-5 h-5", filled = false }) {
@@ -81,6 +82,7 @@ export default function LandingPage() {
         <TrustSection />
         <CTASection />
       </main>
+      <MobileNav/>
       <Footer />
     </div>
   );
