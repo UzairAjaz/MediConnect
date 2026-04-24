@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FloatingInput from "../components/FloatingInput";
-import GradientButton from "../components/GradientButton";
+import FloatingInput from "../components/layouts/FloatingInput";
+import GradientButton from "../components/layouts/GradientButton";
 
 function LoginForm({ onSwitch }) {
   const [showPass, setShowPass] = useState(false);
@@ -11,7 +11,7 @@ function LoginForm({ onSwitch }) {
     e.preventDefault();
     // TODO: Add your login validation / API call here
     // If login is successful:
-    navigate("/dashboard");
+    navigate("/mediconnect");
   };
 
   return (

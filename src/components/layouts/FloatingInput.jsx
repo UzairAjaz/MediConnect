@@ -1,15 +1,5 @@
-import COLORS from "../theme/Colors";
-// primary: "#005dac",
-//   primaryContainer: "#1976d2",
-//   primaryFixed: "#d4e3ff",
-//   onPrimaryFixedVariant: "#004786",
-//   surface: "#f9f9f9",
-//   surfaceContainerLow: "#f3f3f3",
-//   surfaceContainerLowest: "#ffffff",
-//   surfaceContainerHigh: "#e8e8e8",
-//   onSurface: "#1a1c1c",
-//   onSurfaceVariant: "#414752",
-//   outlineVariant: "#c1c6d4",
+import COLORS from "../../theme/Colors";
+
 export default function FloatingInput({ id, label, type = "text", rightElement }) {
   return (
     <div className="relative">

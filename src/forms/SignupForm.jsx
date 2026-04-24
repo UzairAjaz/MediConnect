@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FloatingInput from "../components/FloatingInput";
-import GradientButton from "../components/GradientButton";
+import FloatingInput from "../components/layouts/FloatingInput";
+import GradientButton from "../components/layouts/GradientButton";
 
 export default function SignupForm({ onSwitch }) {
   const [role, setRole] = useState("patient");
@@ -9,9 +9,7 @@ export default function SignupForm({ onSwitch }) {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    // TODO: Add your signup logic (API call, validation, etc.)
-    // If signup is successful:
-    navigate("/dashboard");
+    navigate("/mediconnect");
   };
 
   return (

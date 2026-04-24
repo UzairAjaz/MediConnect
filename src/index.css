@@ -8,3 +8,17 @@
   -ms-overflow-style: none;  /* IE aur Edge */
   scrollbar-width: none;     /* Firefox */
 }
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
+}
+.gradient-text {
+  @apply bg-gradient-to-r from-[#005dac] via-[#1976d2] to-[#005dac] 
+         bg-clip-text text-transparent;
+}
+:root {
+  --primary-gradient: linear-gradient(135deg, #005dac 0%, #1976d2 100%);
+}

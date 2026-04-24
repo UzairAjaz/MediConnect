@@ -6,8 +6,11 @@ export default function MediConnect() {
   const [view, setView] = useState("login");
 
   return (
-    <main className="min-h-screen flex items-stretch" style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#f9f9f9" }}>
-      {/* Left Panel */}
+    <main
+      className="h-screen overflow-hidden flex items-stretch"
+      style={{ backgroundColor: "#f9f9f9" }}
+    >
+      {/* ── Left decorative panel (lg+) ── */}
       <section
         className="hidden lg:flex lg:w-1/2 relative flex-col justify-center items-center overflow-hidden p-12"
         style={{ backgroundColor: "#d4e3ff" }}
@@ -19,6 +22,7 @@ export default function MediConnect() {
             src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80"
           />
         </div>
+
         <div className="relative z-10 max-w-xl text-center">
           <div
             className="mb-8 inline-flex items-center justify-center p-4 rounded-2xl"
@@ -29,14 +33,12 @@ export default function MediConnect() {
             </svg>
           </div>
 
-          <h1
-            className="text-5xl font-extrabold text-[#004786] mb-6 tracking-tight"
-            style={{ fontFamily: "Manrope" }}
-          >
+          <h1 className="text-5xl font-extrabold text-[#004786] mb-6 tracking-tight" style={{ fontFamily: "Manrope" }}>
             Enter Your Clinical Sanctuary.
           </h1>
           <p className="text-xl text-[#004786]/80 font-medium leading-relaxed">
-            Designed for precision, built for empathy. MediConnect streamlines patient care through architectural data precision.
+            Designed for precision, built for empathy. MediConnect streamlines patient
+            care through architectural data precision.
           </p>
 
           <div className="mt-16 grid grid-cols-2 gap-4 text-left">
@@ -74,8 +76,8 @@ export default function MediConnect() {
         </div>
       </section>
 
-      {/* Right Panel */}
-      <section className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 md:p-24 bg-[#f9f9f9]">
+      {/* ── Right form panel ── */}
+     <section className="w-full lg:w-1/2 overflow-y-auto flex items-start justify-center p-8 sm:p-12 md:p-24 py-12 bg-[#f9f9f9]">
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-12">
@@ -98,7 +100,6 @@ export default function MediConnect() {
             <SignupForm onSwitch={() => setView("login")} />
           )}
 
-          {/* Footer */}
           <footer className="mt-16 text-center space-y-4">
             <p className="text-xs text-[#414752]/60 font-medium">
               © 2024 MediConnect Systems. All clinical data encrypted via AES-256.
