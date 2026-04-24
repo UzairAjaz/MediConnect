@@ -87,50 +87,61 @@ function DoctorCard({ doctor }) {
 
         {/* Avatar + info */}
         <div className="flex flex-col items-center text-center">
-          {/* Avatar bubble */}
-          <div
-            className="w-32 h-32 rounded-full border-4 border-[#eeeeee] flex items-center justify-center mb-6"
-            style={{ background: "linear-gradient(135deg, #d4e3ff, #a5c8ff)" }}
-          >
-            <Icon name="person" className="w-14 h-14 text-[#005dac]" />
-          </div>
+  
+  {/* Avatar bubble */}
+  <div
+    className="w-32 h-32 rounded-full border-4 border-[#eeeeee] flex items-center justify-center mb-6 overflow-hidden"
+    style={{ background: "linear-gradient(135deg, #d4e3ff, #a5c8ff)" }}
+  >
+    <img
+      src={doctor.image}
+      alt={doctor.name}
+      className="w-full h-full object-cover object-top"
+    />
+  </div>
 
-          <h2 className="text-[22px] font-bold text-[#1a1c1c] mb-1">
-            {doctor.name}, M.D.
-          </h2>
-          <span className="text-[#005dac] font-semibold text-xs tracking-[0.1em] uppercase mb-5">
-            {doctor.specialty} Specialist
-          </span>
+  <h2 className="text-[22px] font-bold text-[#1a1c1c] mb-1">
+    {doctor.name}, M.D.
+  </h2>
 
-          <div className="w-full h-px bg-[#f3f3f3] mb-5" />
+  <span className="text-[#005dac] font-semibold text-xs tracking-[0.1em] uppercase mb-5">
+    {doctor.specialty} Specialist
+  </span>
 
-          <p className="text-[#414752] text-[13px] leading-relaxed mb-5">
-            Dr. {doctor.name.split(" ")[1]} has over 15 years of experience in clinical{" "}
-            {doctor.specialty.toLowerCase()} and interventional medicine. She specializes in
-            preventative care and advanced diagnostic procedures for complex conditions.
-          </p>
+  <div className="w-full h-px bg-[#f3f3f3] mb-5" />
 
-          {/* Specialty tags */}
-          <div className="flex flex-wrap justify-center gap-2 mb-5">
-            {TAGS.map((tag) => (
-              <span key={tag} className="px-3 py-1 bg-[#eeeeee] text-[#414752] text-[11px] rounded-full">
-                {tag}
-              </span>
-            ))}
-          </div>
+  <p className="text-[#414752] text-[13px] leading-relaxed mb-5">
+    Dr. {doctor.name.split(" ")[1]} has over 15 years of experience in clinical{" "}
+    {doctor.specialty.toLowerCase()} and interventional medicine. She specializes in
+    preventative care and advanced diagnostic procedures for complex conditions.
+  </p>
 
-          {/* Stats */}
-          <div className="w-full space-y-3">
-            <div className="flex justify-between text-[13px]">
-              <span className="text-[#414752]">Consultation Fee</span>
-              <span className="font-bold text-[#1a1c1c]">{doctor.fee}</span>
-            </div>
-            <div className="flex justify-between text-[13px]">
-              <span className="text-[#414752]">Available Today</span>
-              <span className="font-medium text-[#005dac]">3 Slots Left</span>
-            </div>
-          </div>
-        </div>
+  {/* Specialty tags */}
+  <div className="flex flex-wrap justify-center gap-2 mb-5">
+    {TAGS.map((tag) => (
+      <span
+        key={tag}
+        className="px-3 py-1 bg-[#eeeeee] text-[#414752] text-[11px] rounded-full"
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+
+  {/* Stats */}
+  <div className="w-full space-y-3">
+    <div className="flex justify-between text-[13px]">
+      <span className="text-[#414752]">Consultation Fee</span>
+      <span className="font-bold text-[#1a1c1c]">{doctor.fee}</span>
+    </div>
+
+    <div className="flex justify-between text-[13px]">
+      <span className="text-[#414752]">Available Today</span>
+      <span className="font-medium text-[#005dac]">3 Slots Left</span>
+    </div>
+  </div>
+
+</div>
       </div>
 
       {/* Clinic guidelines banner */}

@@ -9,9 +9,7 @@ function LoginForm({ onSwitch }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // TODO: Add your login validation / API call here
-    // If login is successful:
-    navigate("/mediconnect");
+    navigate("/");
   };
 
   return (

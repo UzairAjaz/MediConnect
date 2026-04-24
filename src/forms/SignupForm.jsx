@@ -9,7 +9,7 @@ export default function SignupForm({ onSwitch }) {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    navigate("/mediconnect");
+    navigate("/");
   };
 
   return (

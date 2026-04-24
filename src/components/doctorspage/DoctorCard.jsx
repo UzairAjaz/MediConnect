@@ -41,7 +41,7 @@ export default function DoctorCard({
           <img
             src={image}
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
           />
         </div>
         <div className="flex flex-col min-w-0">
