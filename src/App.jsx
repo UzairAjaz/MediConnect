@@ -13,18 +13,19 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        {/* DEFAULT PAGE */}
+        {/* DEFAULT HOME */}
         <Route path="/" element={<LandingPage />} />
 
-        {/* other routes */}
         <Route path="/dashboard" element={<MediConnectDashboard />} />
         <Route path="/doctors" element={<DoctorsPage />} />
         <Route path="/hospitals" element={<HospitalsPage />} />
         <Route path="/contactus" element={<ContactPage />} />
         <Route path="/appointment" element={<BookAppointment />} />
 
-        {/* optional auth/layout route */}
+        {/* optional auth */}
         <Route path="/auth/*" element={<MediConnect />} />
+
+        {/* 404 fallback */}
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </BrowserRouter>

@@ -49,7 +49,7 @@ function TopNav() {
         {/* NAV LINKS */}
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.path; // 🔥 dynamic check
+            const isActive = location.pathname === item.path; // dynamic check
 
             return (
               <Link
