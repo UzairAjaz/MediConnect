@@ -35,7 +35,7 @@ function TopNav() {
           </div>
 
           <Link
-            to={"/mediconnect"}
+            to={"/"}
             className="text-2xl font-extrabold bg-clip-text text-transparent"
             style={{
               fontFamily: "Manrope, sans-serif",

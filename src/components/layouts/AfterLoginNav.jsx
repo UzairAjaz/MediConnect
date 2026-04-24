@@ -99,7 +99,7 @@ function AfterLoginNav() {
             </button>
           </Link>
 
-          <Link to={"/MediConnect"}>
+          <Link to={"/"}>
             <button className="text-white hover:text-slate-900 transition-all p-2 rounded-xl active:scale-95 bg-red-500">
               Logout
             </button>
