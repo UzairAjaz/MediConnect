@@ -30,7 +30,7 @@ const HERO_IMG =
 
 export default function HeroSection() {
   return (
-    <section className="relative px-18 pt-16 pb-24 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative px-10 sm:px-18 pt-16 pb-24 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
       {/* Left: copy */}
       <div className="space-y-8">
         {/* Trust pill */}

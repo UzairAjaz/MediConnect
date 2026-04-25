@@ -1,6 +1,5 @@
 import AfterLoginNav from "../components/layouts/AfterLoginNav.jsx";
 import SearchBar from "../components/doctorspage/SearchBar";
-import MobileNav from "../components/layouts/MobileNav.jsx";
 import Footer from "../components/layouts/Footer";
 import { ICONS } from "../components/layouts/ui/icons/DoctorsIcons.js";
 import DoctorCard from "../components/doctorspage/DoctorCard.jsx";
@@ -26,7 +25,7 @@ export default function DoctorsPage() {
     <div className="bg-[#f9f9f9] min-h-screen text-[#1a1c1c]">
       <AfterLoginNav />
 
-      <main className="lg:px-18 pt-20 min-h-screen px-4 md:px-8 pb-20">
+      <main className="sm:px-18 pt-20 min-h-screen px-10 pb-20">
         <div className="max-w-7xl mx-auto">
           {/* Hero + Search */}
           <section className="py-12 flex flex-col gap-8">
@@ -46,7 +45,7 @@ export default function DoctorsPage() {
           </section>
 
           {/* Doctor grid: 5 cards + promo card */}
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8">
             {DOCTORS.map((doc) => (
               <div
                 key={doc.id}
@@ -59,8 +58,6 @@ export default function DoctorsPage() {
           </div>
         </div>
       </main>
-
-      <MobileNav />
       <Footer />
     </div>
   );

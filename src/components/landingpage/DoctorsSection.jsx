@@ -78,7 +78,7 @@ function DoctorCard({ doc }) {
 }
 export default function DoctorsSection() {
   return (
-    <section className="py-32 px-18">
+    <section className="py-32 px-10 sm:px-18">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>

@@ -772,7 +772,7 @@ export default function ContactPage() {
     <>
       <AfterLoginNav />
 
-      <main className="px-18 py-36">
+      <main className="px-10 sm:px-18 py-36">
         {/* Hero */}
         <section
           style={{

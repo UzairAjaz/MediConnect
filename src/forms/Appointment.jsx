@@ -63,9 +63,16 @@ function FieldLabel({ children }) {
 
 /** Uniform input / select / textarea base classes */
 const inputCls = `
-  w-full px-4 py-3 bg-[#f3f3f3] border-none rounded-xl text-[13px]
-  text-[#1a1c1c] outline-none transition-all
-  focus:bg-white focus:ring-2 focus:ring-[#005dac]/15
+  w-full 
+  px-3 sm:px-4 
+  py-2.5 sm:py-3 md:py-3.5 
+  bg-[#f3f3f3] border-none 
+  rounded-lg sm:rounded-xl 
+  text-[12px] sm:text-[13px] md:text-[14px]
+  text-[#1a1c1c] 
+  outline-none transition-all duration-200
+  focus:bg-white 
+  focus:ring-2 focus:ring-[#005dac]/20
   placeholder:text-[#717783]
 `;
 
@@ -195,239 +202,271 @@ function SuccessScreen({ doctor, date, slot, email, onReset }) {
   );
 }
 
-// ─── AppointmentForm ──────────────────────────────────────────────────────────
-function AppointmentForm({ doctor }) {
-  const INIT = {
+
+
+const SectionHead = ({ icon, title, subtitle }) => (
+  <div className="col-span-1 sm:col-span-2 pt-2">
+    <h3 className="flex items-center gap-2 text-[17px] font-bold text-[#1a1c1c] font-[Manrope,sans-serif]">
+      <span className="material-symbols-outlined text-[#005dac] text-[22px]">{icon}</span>
+      {title}
+    </h3>
+    <p className="text-[11px] text-[#717783] uppercase tracking-[0.1em] mt-1">{subtitle}</p>
+  </div>
+);
+
+// calendar icon (inline svg - no dependency)
+const CalendarIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
+    <rect x="3" y="4" width="18" height="18" rx="3"/>
+    <path d="M16 2v4M8 2v4M3 10h18"/>
+    <path d="M8 15h.01M12 15h.01M16 15h.01M8 19h.01M12 19h.01"/>
+  </svg>
+);
+
+const UploadIcon = () => (
+  <svg className="w-10 h-10 transition-colors" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+    <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12M8 8l4-4 4 4"/>
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg className="w-4 h-4 text-emerald-500 absolute right-3 top-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+  </svg>
+);
+
+const SpinIcon = () => (
+  <svg className="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+  </svg>
+);
+
+
+// ─── Main Form ────────────────────────────────────────────────────────────────
+export function AppointmentForm() {
+  const [form, setForm] = useState({
     name: "", email: "", phone: "",
     gender: "Male", age: "",
-    doctor: doctor.name,
+    doctor: DOCTORS[0].name,
     date: "", symptoms: "",
     consent: false,
-  };
-
-  const [form, setForm]         = useState(INIT);
-  const [selectedSlot, setSlot] = useState("09:00 AM");
+  });
+  const [selectedSlot, setSlot]   = useState("09:00 AM");
+  const [loading, setLoading]     = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading]   = useState(false);
-
-
-  useEffect(() => {
-    // auto-sync doctor (important fix)
-    setForm((f) => ({
-      ...f,
-      doctor: doctor.name,
-    }));
-  }, [doctor]);
 
   const set = (key, val) => setForm((f) => ({ ...f, [key]: val }));
-  const specialty = DOCTORS.find((d) => d.name === form.doctor)?.specialty || "Cardiology";
+  const specialty = DOCTORS.find((d) => d.name === form.doctor)?.specialty ?? "Cardiology";
 
   const submit = (e) => {
     e.preventDefault();
-    if (!form.consent) return;
-
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1000);
+    setTimeout(() => { setLoading(false); setSubmitted(true); }, 1400);
   };
 
+  const reset = () => {
+    setSubmitted(false);
+    setForm({ name:"",email:"",phone:"",gender:"Male",age:"",doctor:DOCTORS[0].name,date:"",symptoms:"",consent:false });
+    setSlot("09:00 AM");
+  };
 
-  if (submitted) {
-    return (
-      <SuccessScreen
-        doctor={form.doctor} date={form.date} slot={selectedSlot} email={form.email}
-        onReset={() => { setSubmitted(false); setForm(INIT); }}
-      />
-    );
-  }
-
-  /** Reusable section divider with icon + title */
-  const SectionHead = ({ icon, title, subtitle }) => (
-    <div className="col-span-2 pt-2">
-      <h3 className="text-[17px] font-bold text-[#1a1c1c] flex items-center gap-2 mb-1">
-        <Icon name={icon} className="w-5 h-5 text-[#005dac]" />
-        {title}
-      </h3>
-      <p className="text-[11px] text-[#414752] uppercase tracking-[0.1em]">{subtitle}</p>
-    </div>
-  );
+  if (submitted)
+    return <SuccessScreen form={form} selectedSlot={selectedSlot} onReset={reset} />;
 
   return (
-    <div
-      className="bg-white rounded-2xl p-10 md:p-12"
-      style={{ boxShadow: "0 12px 32px rgba(0,93,172,0.06)" }}
-    >
-      <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+    <>
+      {/* inject keyframes + Material Symbols */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+        .material-symbols-outlined {
+          font-family:'Material Symbols Outlined';
+          font-weight:normal; font-style:normal;
+          font-size:24px; line-height:1;
+          letter-spacing:normal; text-transform:none;
+          display:inline-block; white-space:nowrap; direction:ltr;
+          font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+          -webkit-font-smoothing:antialiased;
+        }
+        @keyframes fadeUp {
+          from { opacity:0; transform:translateY(14px); }
+          to   { opacity:1; transform:none; }
+        }
+      `}</style>
 
-        {/* ── Patient Information ── */}
-        <SectionHead icon="person" title="Patient Information" subtitle="Demographics & Contact Details" />
+      <div className="bg-white rounded-2xl p-5 xs:p-6 sm:p-8 md:p-10 lg:p-12"
+           style={{ boxShadow: "0 12px 32px rgba(0,93,172,0.06)" }}>
 
-        {/* Full name */}
-        <div>
-          <FieldLabel>Patient Full Name</FieldLabel>
-          <div className="relative">
-            <input type="text" placeholder="John Doe" required
-              className={inputCls} value={form.name}
-              onChange={(e) => set("name", e.target.value)} />
-            {form.name && (
-              <Icon name="check" className="w-4 h-4 absolute right-3 top-3.5 text-emerald-500" />
-            )}
-          </div>
-        </div>
+        <form onSubmit={submit}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 md:gap-x-8 gap-y-7 md:gap-y-10">
 
-        {/* Email */}
-        <div>
-          <FieldLabel>Email Address</FieldLabel>
-          <input type="email" placeholder="john.doe@example.com" required
-            className={inputCls} value={form.email}
-            onChange={(e) => set("email", e.target.value)} />
-        </div>
+          {/* ══ Patient Information ══ */}
+          <SectionHead icon="person" title="Patient Information" subtitle="Demographics & Contact Details" />
 
-        {/* Phone */}
-        <div>
-          <FieldLabel>Phone Number</FieldLabel>
-          <input type="tel" placeholder="+1 (555) 000-0000"
-            className={inputCls} value={form.phone}
-            onChange={(e) => set("phone", e.target.value)} />
-        </div>
-
-        {/* Gender + Age — side by side */}
-        <div className="grid grid-cols-2 gap-4">
+          {/* Full name */}
           <div>
-            <FieldLabel>Gender</FieldLabel>
-            <select className={inputCls} value={form.gender}
-              onChange={(e) => set("gender", e.target.value)}>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
+            <FieldLabel>Patient Full Name</FieldLabel>
+            <div className="relative">
+              <input type="text" placeholder="John Doe" required
+                className={inputCls} value={form.name}
+                onChange={(e) => set("name", e.target.value)} />
+              {form.name && <CheckIcon />}
+            </div>
+          </div>
+
+          {/* Email */}
+          <div>
+            <FieldLabel>Email Address</FieldLabel>
+            <input type="email" placeholder="john.doe@example.com" required
+              className={inputCls} value={form.email}
+              onChange={(e) => set("email", e.target.value)} />
+          </div>
+
+          {/* Phone — full width on xs, half on sm+ */}
+          <div className="sm:col-span-1">
+            <FieldLabel>Phone Number</FieldLabel>
+            <input type="tel" placeholder="+923123456789"
+              className={inputCls} value={form.phone}
+              onChange={(e) => set("phone", e.target.value)} />
+          </div>
+
+          {/* Gender + Age — always side by side inside a col */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div>
+              <FieldLabel>Gender</FieldLabel>
+              <select className={inputCls} value={form.gender}
+                onChange={(e) => set("gender", e.target.value)}>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <FieldLabel>Age</FieldLabel>
+              <input type="number" placeholder="45" min={1} max={120}
+                className={inputCls} value={form.age}
+                onChange={(e) => set("age", e.target.value)} />
+            </div>
+          </div>
+
+          {/* ══ Appointment Details ══ */}
+          <SectionHead icon="stethoscope" title="Appointment Details" subtitle="Doctor Selection & Symptoms" />
+
+          {/* Doctor selector */}
+          <div>
+            <FieldLabel>Select Doctor</FieldLabel>
+            <select className={inputCls} value={form.doctor}
+              onChange={(e) => set("doctor", e.target.value)}>
+              {DOCTORS.map((d) => <option key={d.name}>{d.name}</option>)}
             </select>
           </div>
+
+          {/* Specialization — read-only */}
           <div>
-            <FieldLabel>Age</FieldLabel>
-            <input type="number" placeholder="45" min={1} max={120}
-              className={inputCls} value={form.age}
-              onChange={(e) => set("age", e.target.value)} />
+            <FieldLabel>Specialization</FieldLabel>
+            <input readOnly value={specialty}
+              className={`${inputCls} text-[#717783] cursor-not-allowed`} />
           </div>
-        </div>
 
-        {/* ── Appointment Details ── */}
-        <SectionHead icon="stethoscope" title="Appointment Details" subtitle="Doctor Selection & Symptoms" />
-
-        {/* Doctor selector */}
-        <div>
-          <FieldLabel>Select Doctor</FieldLabel>
-          <select className={inputCls} value={form.doctor}
-            onChange={(e) => set("doctor", e.target.value)}>
-            {DOCTORS.map((d) => <option key={d.name}>{d.name}</option>)}
-          </select>
-        </div>
-
-        {/* Specialization — read-only */}
-        <div>
-          <FieldLabel>Specialization</FieldLabel>
-          <input readOnly value={specialty}
-            className={`${inputCls} text-[#717783] cursor-not-allowed`} />
-        </div>
-
-        {/* Preferred date */}
-        <div>
-          <FieldLabel>Preferred Date</FieldLabel>
-          <input type="date" required
-            className={inputCls} value={form.date}
-            onChange={(e) => set("date", e.target.value)} />
-        </div>
-
-        {/* Time slot picker */}
-        <div>
-          <FieldLabel>Preferred Time Slot</FieldLabel>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {TIME_SLOTS.map((slot) => (
-              <button key={slot} type="button"
-                onClick={() => setSlot(slot)}
-                className={`px-4 py-2 rounded-lg text-[11px] font-semibold border-none cursor-pointer transition-all
-                  ${selectedSlot === slot
-                    ? "text-white shadow-md shadow-blue-500/20"
-                    : "bg-[#eeeeee] text-[#414752] hover:bg-[#e2e2e2]"}`}
-                style={selectedSlot === slot ? GRADIENT : {}}
-              >
-                {slot}
-              </button>
-            ))}
+          {/* Preferred date */}
+          <div>
+            <FieldLabel>Preferred Date</FieldLabel>
+            <input type="date" required
+              className={inputCls} value={form.date}
+              onChange={(e) => set("date", e.target.value)} />
           </div>
-        </div>
 
-        {/* Symptoms — full width */}
-        <div className="col-span-2">
-          <FieldLabel>Describe Your Symptoms</FieldLabel>
-          <textarea rows={4} placeholder="Briefly describe what you are experiencing..."
-            className={`${inputCls} resize-none min-h-[100px]`}
-            value={form.symptoms}
-            onChange={(e) => set("symptoms", e.target.value)} />
-        </div>
+          {/* Time slot picker */}
+          <div>
+            <FieldLabel>Preferred Time Slot</FieldLabel>
+            <div className="flex flex-wrap gap-2 mt-1">
+              {TIME_SLOTS.map((slot) => (
+                <button key={slot} type="button"
+                  onClick={() => setSlot(slot)}
+                  className={`
+                    px-3 sm:px-4 py-2 rounded-lg text-[11px] font-semibold
+                    border-none cursor-pointer transition-all select-none
+                    ${selectedSlot === slot
+                      ? "text-white shadow-md shadow-blue-500/20"
+                      : "bg-[#eeeeee] text-[#414752] hover:bg-[#e2e2e2] active:scale-95"}
+                  `}
+                  style={selectedSlot === slot ? GRADIENT : {}}>
+                  {slot}
+                </button>
+              ))}
+            </div>
+          </div>
 
-        {/* File upload — full width */}
-        <div className="col-span-2">
-          <FieldLabel>Medical Report Upload (Optional)</FieldLabel>
-          <label className="flex flex-col items-center justify-center w-full
-                            border-2 border-dashed border-[#c1c6d4]/50 rounded-2xl
-                            p-8 cursor-pointer text-center hover:border-[#005dac]/30
-                            hover:bg-[#f9f9f9] transition-all group">
-            <input type="file" accept=".pdf,.jpg,.png" className="hidden" />
-            <Icon name="upload" className="w-10 h-10 text-[#c1c6d4] mb-3 group-hover:text-[#005dac] transition-colors" />
-            <p className="text-[13px] text-[#414752]">
-              Drag and drop files or{" "}
-              <span className="text-[#005dac] font-bold">browse</span>
-            </p>
-            <p className="text-[10px] text-[#717783] uppercase tracking-[0.05em] mt-1">
-              PDF, JPG, PNG (Max 10MB)
-            </p>
-          </label>
-        </div>
+          {/* Symptoms — always full width */}
+          <div className="col-span-1 sm:col-span-2">
+            <FieldLabel>Describe Your Symptoms</FieldLabel>
+            <textarea rows={4} placeholder="Briefly describe what you are experiencing..."
+              className={`${inputCls} resize-none min-h-[90px]`}
+              value={form.symptoms}
+              onChange={(e) => set("symptoms", e.target.value)} />
+          </div>
 
-        {/* Actions — full width */}
-        <div className="col-span-2 pt-6 flex flex-col gap-5">
-          {/* Consent checkbox */}
-          <label className="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" required
-              checked={form.consent}
-              onChange={(e) => set("consent", e.target.checked)}
-              className="mt-0.5 w-4 h-4 rounded accent-[#005dac] shrink-0" />
-            <span className="text-[12px] text-[#414752] leading-[1.7]">
-              I consent to the processing of my health data for medical consultation purposes
-              and agree to the{" "}
-              <a href="#" className="text-[#005dac] font-semibold hover:underline">Terms of Service</a>
-              {" "}and{" "}
-              <a href="#" className="text-[#005dac] font-semibold hover:underline">Privacy Policy</a>.
-            </span>
-          </label>
+          {/* File upload — always full width */}
+          <div className="col-span-1 sm:col-span-2">
+            <FieldLabel>Medical Report Upload (Optional)</FieldLabel>
+            <label className="
+              flex flex-col items-center justify-center w-full
+              border-2 border-dashed border-[#c1c6d4]/50 rounded-2xl
+              p-6 sm:p-8 cursor-pointer text-center
+              hover:border-[#005dac]/40 hover:bg-[#f9f9f9]
+              transition-all group">
+              <input type="file" accept=".pdf,.jpg,.png" className="hidden" />
+              <span className="text-[#c1c6d4] group-hover:text-[#005dac] transition-colors mb-2">
+                <UploadIcon />
+              </span>
+              <p className="text-[13px] text-[#414752]">
+                Drag and drop files or{" "}
+                <span className="text-[#005dac] font-bold">browse</span>
+              </p>
+              <p className="text-[10px] text-[#717783] uppercase tracking-[0.05em] mt-1">
+                PDF, JPG, PNG (Max 10MB)
+              </p>
+            </label>
+          </div>
 
-          {/* Submit button */}
-          <button type="submit" disabled={loading}
-            className="w-full py-4 rounded-xl text-white font-bold text-[15px]
-                       flex items-center justify-center gap-2 transition-all
-                       hover:opacity-90 active:scale-[0.98] disabled:opacity-80"
-            style={{ ...GRADIENT, boxShadow: "0 8px 24px rgba(0,93,172,0.2)" }}
-          >
-            {loading ? (
-              <>
-                <svg className="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                Booking...
-              </>
-            ) : (
-              <>
-                Confirm Appointment
-                <Icon name="calendar" className="w-5 h-5" />
-              </>
-            )}
-          </button>
-        </div>
-      </form>
-    </div>
+          {/* Actions — full width */}
+          <div className="col-span-1 sm:col-span-2 pt-4 sm:pt-6 flex flex-col gap-4 sm:gap-5">
+
+            {/* Consent */}
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" required
+                checked={form.consent}
+                onChange={(e) => set("consent", e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded accent-[#005dac] shrink-0" />
+              <span className="text-[12px] text-[#414752] leading-[1.75]">
+                I consent to the processing of my health data for medical consultation purposes
+                and agree to the{" "}
+                <a href="#" className="text-[#005dac] font-semibold hover:underline">Terms of Service</a>
+                {" "}and{" "}
+                <a href="#" className="text-[#005dac] font-semibold hover:underline">Privacy Policy</a>.
+              </span>
+            </label>
+
+            {/* Submit button */}
+            <button type="submit" disabled={loading}
+              className="
+                w-full py-3.5 sm:py-4 rounded-xl text-white
+                font-bold text-[14px] sm:text-[15px]
+                flex items-center justify-center gap-2
+                transition-all hover:opacity-90 active:scale-[0.98]
+                disabled:opacity-75 disabled:cursor-wait"
+              style={{ ...GRADIENT, boxShadow: "0 8px 24px rgba(0,93,172,0.22)" }}>
+              {loading ? (
+                <><SpinIcon /> Booking...</>
+              ) : (
+                <><CalendarIcon /> Confirm Appointment</>
+              )}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </>
   );
 }
 
@@ -440,7 +479,7 @@ export default function BookAppointment() {
   return (
     <div className="min-h-screen bg-[#f9f9f9] text-[#1a1c1c]">
       <AfterLoginNav />
-      <main className="lg:px-18 pt-20 min-h-screen px-6 pb-16">
+      <main className="lg:px-18 pt-20 min-h-screen px-10 pb-16">
         <div className="max-w-7xl mx-auto">
 
           {/* ── Breadcrumb + page title ── */}

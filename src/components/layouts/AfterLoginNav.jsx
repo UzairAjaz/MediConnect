@@ -19,7 +19,7 @@ function AfterLoginNav() {
         backdropFilter: "blur(20px)",
       }}
     >
-      <div className="flex justify-between items-center w-full px-6 lg:px-18 h-full">
+      <div className="flex justify-between items-center w-full px-8 sm:px-18 h-full">
         {/* LEFT SIDE */}
         <div className="flex items-center gap-2">
           <div

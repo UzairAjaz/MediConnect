@@ -52,7 +52,7 @@ function Icon({ name, className = "w-5 h-5", filled = false }) {
 }
 export default function TestimonialsSection() {
   return (
-    <section className="py-32 px-18 bg-[#f3f3f3]">
+    <section className="py-32 px-10 sm:px-18 bg-[#f3f3f3]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1a1c1c] mb-6">

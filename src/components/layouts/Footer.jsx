@@ -20,7 +20,7 @@ export default function Footer() {
   const links = ["Privacy Policy", "Terms of Service", "HIPAA Compliance", "Contact Support"];
   return (
     <footer className="bg-slate-100 w-full">
-      <div className="flex flex-col md:flex-row justify-between items-center px-18 py-10 gap-6 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-center px-10 sm:px-18 py-10 gap-6 max-w-7xl mx-auto">
         {/* Brand */}
         <div className="space-y-1 text-center md:text-left">
           <div className="text-lg font-bold text-slate-900" >MediConnect</div>

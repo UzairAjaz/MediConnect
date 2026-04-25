@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function CTASection() {
   return (
-    <section className="py-8 px-30">
+    <section className="py-8 px-10 sm:px-30">
       <div
         className="max-w-7xl mx-auto rounded-[4rem] p-8 lg:p-12 text-center text-white relative overflow-hidden"
         style={{ background: "var(--primary-gradient)" }}

@@ -53,7 +53,7 @@ function SearchField({
 }
 export default function SearchSection() {
   return (
-    <section className="px-8 -mt-12 relative z-20">
+    <section className="px-10 -mt-12 relative z-20">
       <div
         className="max-w-[60rem] mx-auto bg-white p-4 lg:p-6 rounded-4xl border border-[#c1c6d4]/10"
         style={{ boxShadow: "0 20px 50px rgba(0,93,172,0.12)" }}

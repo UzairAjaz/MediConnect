@@ -3,7 +3,6 @@ import AfterLoginNav from "../components/layouts/AfterLoginNav";
 import Footer from "../components/layouts/Footer";
 import SearchBar from "../components/hospitalpage/SearchBar";
 import HospitalCard from "../components/hospitalpage/HospitalCard";
-import MobileNav from "../components/layouts/MobileNav";
 import { HOSPITALS } from "../data/hospitals";
 import { ICONS } from "../components/layouts/ui/icons/HospitalIcons";
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -38,38 +37,22 @@ function Icon({ name, className = "w-5 h-5" }) {
   );
 }
 
-// Filled gold star for ratings
-
-// Regular hospital cards
-
 const MAP_IMG =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuA1QWYicjsGDugf1axcs43jqffVLYek3lL4NwfHFWfE7UpqyNnWRuITfOwDjtRLXY-URixF0Hd6HKpmwOdw-OsnrB66LzxMd8voFoiZ0Ph7aB2EnIE7-OmxSoRPDOiQ0kKfyn6aI2xbovX6nf8umyENtltINTBlwQN0kAkGEJ8lxIJIudPWcT1MxTl9gKHCpySAJqk1EHGwmOMBXul7vMnvOef7kXRaZcw8VpVgDD4qYrNJP9AdFiXP1osPWEG3_EM8aZxxwn900Yup";
 const USER_AVATAR =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCr45wtQdjSZJLTgbFYsMGX8tNbxx8Gf3LhAFMm4NivAFiv48iAwMk_WDar_0T_EFkacob1_yvCCRjXwUxa5HlIh-dbfU1adOA6OwCYtvyc6jali5k4aMBgfCK_w1ZDKWvpd7aQaGrbqJ33YgIhCgtVrGk6mO07eQ42g_FJkG885Ew8ZGQ-3swEgsEDSngvI0l3wr-ej49XrJ624Xbt5OC-eQw8_7qnly5QUpEnf1R_121N9e50M88_Jm_b5YIibRaUXcTvxVI1fy8H";
 
-/** Mobile FAB */
-function FAB() {
-  return (
-    <button
-      className="md:hidden fixed bottom-8 right-8 z-50 h-14 w-14 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95"
-      style={{ ...GRADIENT, boxShadow: "0 12px 32px rgba(0,93,172,0.25)" }}
-    >
-      <Icon name="plus" className="w-6 h-6" />
-    </button>
-  );
-}
 
-// ─── Page Assembly ─────────────────────────────────────────────────────────────
+// Page Assembly 
 export default function HospitalsPage() {
   const [filteredHospitals, setFilteredHospitals] = useState(HOSPITALS);
   return (
     <div
       className="min-h-screen bg-[#f9f9f9] text-[#1a1c1c]"
-      style={{ fontFamily: "Inter,sans-serif" }}
     >
       <AfterLoginNav />
 
-      <main className="pt-24 pb-12 px-6 lg:px-18">
+      <main className="pt-24 pb-12 px-10 sm:px-18">
         {/* ── Page header ── */}
         <div className="max-w-7xl mx-auto mb-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -106,8 +89,6 @@ export default function HospitalsPage() {
           ))}
         </section>
       </main>
-      <MobileNav/>
-      <FAB />
       <Footer />
     </div>
   );

@@ -23,7 +23,7 @@ function Icon({ name, className = "w-5 h-5", filled = false }) {
 }
 export default function TrustSection() {
   return (
-    <section className="py-8 px-8">
+    <section className="py-8 px-10 sm:px-18">
       <div className="max-w-5xl mx-auto bg-white rounded-[3rem] p-12 border border-[#c1c6d4]/10 text-center shadow-sm">
         <h3 className="text-2xl font-extrabold text-[#1a1c1c] mb-12">
           Your Trust is Our Foundation
